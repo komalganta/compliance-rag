@@ -1,0 +1,37 @@
+[
+  {
+    "source_type": "attack_enterprise",
+    "source_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack.json",
+    "filename": "attack_enterprise.json",
+    "content_hash": "dc1639caa5501d720e280cf1cbd8fbe009884a0c9b3e6e9ed9d0c25166c3d8f4",
+    "fetched_at": "2026-09-01T21:54:02.313154+00:00"
+  },
+  {
+    "source_type": "nist_800_53",
+    "source_url": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json",
+    "filename": "nist_800_53_rev5.json",
+    "content_hash": "01f37cf90ea99d92242c936cbfbdebcc338eef1f71454e2acac36cc56e9bc062",
+    "fetched_at": "2026-09-01T21:54:03.029315+00:00"
+  },
+  {
+    "source_type": "cisa_kev",
+    "source_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+    "filename": "cisa_kev.json",
+    "content_hash": "c4560f429889b75a2010996b95d592498c4bdb8d88f4e3307cc4316ef4db675e",
+    "fetched_at": "2026-09-01T21:54:03.380628+00:00"
+  },
+  {
+    "source_type": "csf_2_0",
+    "source_url": "https://raw.githubusercontent.com/usnistgov/oscal-content/refs/heads/main/nist.gov/CSF/v2.0/json/NIST_CSF_v2.0_catalog.json",
+    "filename": "csf_2_0.json",
+    "content_hash": "4836943f21d393f2821df85ada4e6f3c0617243b4ddf44263fe68205400210b4",
+    "fetched_at": "2026-09-01T21:54:03.626830+00:00"
+  },
+  {
+    "source_type": "ctid_mapping",
+    "source_url": "https://raw.githubusercontent.com/center-for-threat-informed-defense/mappings-explorer/refs/heads/main/mappings/nist_800_53/attack-16.1/nist_800_53-rev5/enterprise/nist_800_53-rev5_attack-16.1-enterprise.json",
+    "filename": "ctid_mapping.json",
+    "content_hash": "355ae97d309c00eb2428e5af07754ff4ca16cfe63928194081d0e883aed929c8",
+    "fetched_at": "2026-09-01T21:54:04.083029+00:00"
+  }
+]
