@@ -2,4 +2,4 @@ data/raw/*
 !data/raw/manifest.json
 .env
 .venv/
-__pycache__/
+__pycache__/.DS_Store
