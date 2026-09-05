@@ -15,3 +15,5 @@
 - Vector-only search on "which controls mitigate brute force attacks" returned 0/5 of these in its top 5 — surfaced tangentially related controls (SA-05(01), SI-10(06), AC-04(04), AU-09(03)) instead.
 - Root cause: embedding model captures general semantic similarity, not precise domain-term matching; formal control language ("Unsuccessful Logon Attempts") doesn't share vocabulary with plain-English attack descriptions ("brute force").
 - Motivates week 2 work: hybrid retrieval (vector + keyword/BM25 search using the tsv column already in chunks) and/or graph-based retrieval using entity_links directly for known technique IDs.
+- Fixed find_matching_technique: originally used ts_rank on full chunk text, which favored techniques with longer descriptions over exact name matches (T1558.003 outranked T1110 "Brute Force" despite T1110 being the obvious match). Fixed by matching directly against entity_name with LIKE, bypassing text-length bias entirely.
+- Verified: "which controls mitigate brute force attacks" now correctly matches T1110 and returns AC-02, AC-03, AC-05, AC-06, AC-07 — matching CTID ground truth.
