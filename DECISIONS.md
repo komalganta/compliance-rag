@@ -17,3 +17,7 @@
 - Motivates week 2 work: hybrid retrieval (vector + keyword/BM25 search using the tsv column already in chunks) and/or graph-based retrieval using entity_links directly for known technique IDs.
 - Fixed find_matching_technique: originally used ts_rank on full chunk text, which favored techniques with longer descriptions over exact name matches (T1558.003 outranked T1110 "Brute Force" despite T1110 being the obvious match). Fixed by matching directly against entity_name with LIKE, bypassing text-length bias entirely.
 - Verified: "which controls mitigate brute force attacks" now correctly matches T1110 and returns AC-02, AC-03, AC-05, AC-06, AC-07 — matching CTID ground truth.
+- Groq deprecated llama-3.3-70b-versatile for free tier (Enterprise-only now); switched to openai/gpt-oss-20b.
+- Added explicit synthesis instruction to prompt after noticing single-source bias on a 5-relevant-source question; verified fix works correctly on a genuinely multi-source question (credential dumping + LSASS memory).
+- Verified refusal behavior: model correctly declined to answer detection-methods portion of a question when sources didn't cover it, rather than hallucinating.
+- Minor: model sometimes uses 【N】 citation brackets instead of [N] — cosmetic, not yet fixed.
