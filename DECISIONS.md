@@ -21,3 +21,4 @@
 - Added explicit synthesis instruction to prompt after noticing single-source bias on a 5-relevant-source question; verified fix works correctly on a genuinely multi-source question (credential dumping + LSASS memory).
 - Verified refusal behavior: model correctly declined to answer detection-methods portion of a question when sources didn't cover it, rather than hallucinating.
 - Minor: model sometimes uses 【N】 citation brackets instead of [N] — cosmetic, not yet fixed.
+- Wrapped the RAG pipeline in FastAPI (/ask POST endpoint). Embedding model loaded once at startup, not per-request, to avoid multi-second reload delay on every question.
