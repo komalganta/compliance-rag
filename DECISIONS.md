@@ -22,3 +22,9 @@
 - Verified refusal behavior: model correctly declined to answer detection-methods portion of a question when sources didn't cover it, rather than hallucinating.
 - Minor: model sometimes uses 【N】 citation brackets instead of [N] — cosmetic, not yet fixed.
 - Wrapped the RAG pipeline in FastAPI (/ask POST endpoint). Embedding model loaded once at startup, not per-request, to avoid multi-second reload delay on every question.
+## Eval findings (5-question manual pass)
+- single_hop (T1110 mitigations): initially 5/14 recall due to hardcoded results[:5] truncation in retrieve(). Fixed by never truncating graph-verified results. Now 14/14.
+- multi_hop (T1110 + T1003 intersection): 0/11 recall. find_matching_technique only detects one technique per question (LIMIT 1) -- no multi-entity detection or intersection logic exists. System correctly refused rather than hallucinating. Documented as known limitation; true fix requires multi-entity extraction, out of scope for now.
+- out_of_scope (2027 spending projection): passed correctly -- system refused rather than guessing.
+- mapping/CSF (GV.OC): initially 0 results -- CSF parser was extracting entity_id from props.label (format: "Full Title (CODE)"), inconsistent with NIST 800-53's props.label format (clean code only). Fixed by using CSF's own object id field directly, which is already clean. Required full DB reload + re-embed.
+- mapping/KEV (CVE-2026-82078): retrieved correctly, but LLM stated the CVE was NOT a known exploited vulnerability -- an inversion of the truth, caused by ambiguous chunk phrasing (conflated "known ransomware use: Unknown" with overall KEV status). Fixed by adding explicit "is listed in the CISA KEV catalog" sentence to chunk text. Required full DB reload + re-embed.
