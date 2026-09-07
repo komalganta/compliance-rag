@@ -57,20 +57,23 @@ def call_groq(prompt: str) -> str:
     response.raise_for_status()
     return response.json()["choices"][0]["message"]["content"]
 
-def retrieve(cur, model, question: str) -> list[tuple]:
-    """Run the full three-layer retrieval pipeline (same logic as query.py)."""
+def retrieve(cur, model, question: str, top_k: int = 5) -> list[tuple]:
+    """Run full three-layer retrieval pipeline. Graph-verified results
+    from entity_links are never truncated, since they're confirmed
+    ground truth, not ranked guess. Only fuzzy hybrid (vector+keyword)
+    results are capped at top_k, to fill in when no graph match exists."""
     query_vector = embed_query(model, question)
 
     vec_results = vector_search(cur, query_vector)
     kw_results = keyword_search(cur, question)
-    fused = reciprocal_rank_fusion(vec_results, kw_results)
+    fused = reciprocal_rank_fusion(vec_results, kw_results, top_k=top_k)
 
     technique_id = find_matching_technique(cur, question)
     graph_results = graph_lookup(cur, technique_id) if technique_id else []
 
     seen_ids = {r[0] for r in graph_results}
     results = graph_results + [r for r in fused if r[0] not in seen_ids]
-    return results[:5]
+    return results
 
 
 if __name__ == "__main__":

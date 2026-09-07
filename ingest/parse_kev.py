@@ -11,9 +11,7 @@ def load_kev_catalog() -> list[dict]:
 
 
 def extract_kev_entries(vulns: list[dict]) -> list[dict]:
-    """Convert each KEV entry into a chunk-shaped dict. Every field here
-    is already flat -- no nesting, no ID-hunting needed, unlike the other
-    three sources."""
+    """Convert each KEV entry into a chunk-shaped dict."""
     extracted = []
     for v in vulns:
         cve_id = v.get("cveID")
@@ -21,9 +19,10 @@ def extract_kev_entries(vulns: list[dict]) -> list[dict]:
             continue
         cwes = ", ".join(v.get("cwes") or []) or "none listed"
         text = (
-            f"{cve_id} ({v.get('vendorProject', '')} {v.get('product', '')}): "
-            f"{v.get('vulnerabilityName', '')}. {v.get('shortDescription', '')} "
-            f"Known ransomware use: {v.get('knownRansomwareCampaignUse', 'Unknown')}. "
+            f"{cve_id} ({v.get('vendorProject', '')} {v.get('product', '')}) is listed in the CISA "
+            f"Known Exploited Vulnerabilities (KEV) catalog. Vulnerability name: {v.get('vulnerabilityName', '')}. "
+            f"{v.get('shortDescription', '')} "
+            f"Known ransomware campaign use: {v.get('knownRansomwareCampaignUse', 'Unknown')}. "
             f"CWEs: {cwes}. Added to KEV catalog {v.get('dateAdded', '')}, "
             f"remediation due {v.get('dueDate', '')}."
         )

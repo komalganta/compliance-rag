@@ -39,14 +39,14 @@ def extract_prose(parts: list[dict]) -> str:
 
 def extract_csf_controls(functions: list[dict]) -> list[dict]:
     """Walk Function -> Category -> Subcategory, extracting each Category
-    and Subcategory as a flat chunk-shaped dict. Functions themselves
-    (GV, ID, PR, DE, RS, RC) are not embedded as separate entities --
-    they're broad umbrellas, not queryable controls."""
+    and Subcategory as a flat chunk-shaped dict. CSF's OSCAL 'id' field is
+    already the clean code (e.g. 'GV.OC'), unlike NIST 800-53 where the
+    clean code had to be pulled from props.label instead."""
     extracted = []
     for function in functions:
         categories = function.get("controls", [])
         for category in categories:
-            cat_id = get_control_id(category)
+            cat_id = category.get("id")
             if cat_id is None:
                 continue
             cat_prose = extract_prose(category.get("parts", []))
@@ -59,7 +59,7 @@ def extract_csf_controls(functions: list[dict]) -> list[dict]:
 
             subcategories = category.get("controls", [])
             for sub in subcategories:
-                sub_id = get_control_id(sub)
+                sub_id = sub.get("id")
                 if sub_id is None:
                     continue
                 sub_prose = extract_prose(sub.get("parts", []))
