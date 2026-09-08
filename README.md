@@ -4,10 +4,19 @@
 
 A retrieval-augmented generation (RAG) system that answers cybersecurity compliance questions, grounded in NIST 800-53, NIST CSF 2.0, MITRE ATT&CK, and CISA's Known Exploited Vulnerabilities catalog, and also cites its sources on every claim.
 
+**Try it from a terminal:**
 ```bash
 curl -X POST https://compliance-rag-k8np.onrender.com/ask \
   -H "Content-Type: application/json" \
   -d '{"question": "which controls mitigate brute force attacks"}'
+```
+
+**Sample response:**
+```json
+{
+  "answer": "Brute-force attacks are mitigated by AC-07 – Unsuccessful Logon Attempts, which enforces a limit on consecutive invalid logon attempts... [5]",
+  "sources": ["AC-02 — Account Management", "AC-03 — Access Enforcement", "AC-05 — Separation of Duties", "AC-06 — Least Privilege", "AC-07 — Unsuccessful Logon Attempts"]
+}
 ```
 
 ---
