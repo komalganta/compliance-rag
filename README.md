@@ -1,6 +1,6 @@
 # Compliance RAG Assistant
 
-**Live demo:** https://compliance-rag-k8np.onrender.com
+**Live demo:** https://compliance-rag-k8np.onrender.com/docs
 
 A retrieval-augmented generation (RAG) system that answers cybersecurity compliance questions, grounded in NIST 800-53, NIST CSF 2.0, MITRE ATT&CK, and CISA's Known Exploited Vulnerabilities catalog, and also cites its sources on every claim.
 
